@@ -2,10 +2,17 @@ package com.example
 
 import scalaz._
 import std.option._, std.list._
+import scalaz.Maybe
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    println(Apply[Option].apply2(some(1), some(2))((a, b) => a + b))
+    val a = Some(3)
+    if (a.isDefined) {
+      println(Maybe.Just.apply(a.get))
+    } else {
+      println(Maybe.empty)
+    }
+
     println("Hello, world!")
   }
 }
