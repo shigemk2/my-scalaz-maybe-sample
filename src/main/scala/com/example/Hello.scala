@@ -7,10 +7,9 @@ import scalaz.Maybe
 object Hello {
   def main(args: Array[String]): Unit = {
     val a = Some(3)
-    if (a.isDefined) {
-      println(Maybe.Just.apply(a.get))
-    } else {
-      println(Maybe.empty)
+    a match {
+      case a if a.isDefined => println(Maybe.Just.apply(a.get))
+      case _ => println(Maybe.empty)
     }
 
     println("Hello, world!")
