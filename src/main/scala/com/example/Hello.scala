@@ -1,16 +1,18 @@
 package com.example
 
-import scalaz._
-import std.option._, std.list._
+import monocle.Prism
+
 import scalaz.Maybe
 
 object Hello {
   def main(args: Array[String]): Unit = {
-    val a = Some(3)
-    a match {
-      case a if a.isDefined => println(Maybe.Just.apply(a.get))
-      case _ => println(Maybe.empty)
-    }
+    val strToInt = Prism[String, Int] { str: String =>
+      Maybe.fromTryCatchNonFatal(str.toInt).toOption
+    }(_.toString)
+
+    println(strToInt.getMaybe("3"))
+    println(strToInt.getMaybe("")) // getMaybe is deprecated
+
 
     println("Hello, world!")
   }
